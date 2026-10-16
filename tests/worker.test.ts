@@ -1,0 +1,5 @@
+import {it,expect,vi,afterEach} from 'vitest';
+afterEach(()=>{vi.unstubAllGlobals();vi.resetModules()});
+async function worker(){const scope:{onmessage?:(event:{data:unknown})=>Promise<void>;postMessage:ReturnType<typeof vi.fn>}={postMessage:vi.fn()};vi.stubGlobal('self',scope);await import('../src/lib/rescue.worker');return scope;}
+it('reports invalid UTF-8 instead of parsing corrupted data',async()=>{const scope=await worker();await scope.onmessage!({data:{type:'parse',file:{size:2,arrayBuffer:async()=>new Uint8Array([255,254]).buffer}}});expect(scope.postMessage).toHaveBeenLastCalledWith({type:'error',code:'encoding'})});
+it('returns an error rather than staying busy when the analysis date is missing',async()=>{const scope=await worker();await scope.onmessage!({data:{type:'parse',text:'id,date,status\nA,2026-10-01,new'}});const mapping=scope.postMessage.mock.calls[0][0].mapping;await scope.onmessage!({data:{type:'analyze',mapping,reference:''}});expect(scope.postMessage).toHaveBeenLastCalledWith({type:'error',code:'date'})});

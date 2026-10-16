@@ -1,0 +1,11 @@
+export const fields = ['order_id','created_at','status','ship_by','payment_status','total'] as const;
+export type Field = typeof fields[number];
+export type Mapping = Record<Field, number | null>;
+export type ParsedCSV = { headers: string[]; rows: string[][] };
+export type Status = 'new' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
+export type Payment = 'paid' | 'unpaid' | 'refunded' | 'unknown';
+export const categories = ['overdue','missing_id','missing_status','unknown_status','invalid_created','invalid_ship','duplicate','repeated_id','payment','missing_ship','unknown_payment'] as const;
+export type Category = typeof categories[number];
+export type Severity = 'high' | 'medium' | 'info';
+export type Issue = { row: number; orderId: string; category: Category; severity: Severity; priority: number };
+export type Report = { issues: Issue[]; total: number; review: number; overdue: number; duplicates: number; invalid: number; information: number };

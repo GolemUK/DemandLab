@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';import ToolCard from '../../components/ToolCard.astro';import GuideList from '../../components/GuideList.astro';import Contact from '../../components/Contact.astro';import {t,href,locales,type Locale} from '../../i18n';
+export function getStaticPaths(){return locales.flatMap(lang=>['tools','guides','solutions','about','privacy','contact'].map(page=>({params:{lang,page}})));}
+const locale=Astro.params.lang as Locale;const page=Astro.params.page as 'tools'|'guides'|'solutions'|'about'|'privacy'|'contact';const d=t(locale);const [title,description]=d.pages[page];
+const sections=page==='contact'?d.support.contactSections:page==='about'?d.support.aboutSections:page==='solutions'?d.support.solutionSections:page==='privacy'?d.support.privacySections:[];
+---
+<Layout locale={locale} title={title} description={description} slug={page}><div class="wrap"><div class="page-heading"><p class="eyebrow">DemandLab</p><h1>{title}</h1><p>{description}</p></div>{page==='tools'&&<ToolCard locale={locale}/>} {page==='guides'&&<GuideList locale={locale}/>} {sections.length>0&&<div class="article">{sections.map(([heading,body])=><section class="prose-section"><h2>{heading}</h2><p>{body}</p></section>)}{page==='about'&&<p><a href={href(locale,'tools/order-rescue')}>{d.home.toolAction}</a> · <a href={href(locale,'guides')}>{d.nav.guides}</a></p>}</div>}{(page==='solutions'||page==='contact')&&<div class="mt-10"><Contact locale={locale} general={page==='contact'}/></div>}</div></Layout>

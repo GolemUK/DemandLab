@@ -1,0 +1,5 @@
+---
+import {t,href,type Locale} from '../i18n';
+const {locale}=Astro.props as {locale:Locale}; const d=t(locale);
+---
+<div class="feature-card"><div><div class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 3h14v18H5zM8 8h8M8 12h4M8 16h3m3-1 2 2 4-4"/></svg></div><h2>Order Rescue<span class="text-mint">.</span></h2><p>{d.home.toolDesc}</p><a class="button" href={href(locale,'tools/order-rescue')}>{d.home.toolAction}<span aria-hidden="true">↗</span></a><p class="privacy-note">{d.home.local}</p></div><div><ol class="workflow">{d.home.workflow.map((step,i)=><li><span class="step-number">0{i+1}</span><span>{step}</span></li>)}</ol><p class="mt-6 text-sm">{d.home.noAccount}</p></div></div>

@@ -1,0 +1,7 @@
+---
+import {advertising,type AdPlacement} from '../config/advertising';
+interface Props {placement:AdPlacement}
+const {placement}=Astro.props;
+if(advertising.enabled)throw new Error('An approved advertising provider must be implemented before enabling ads.');
+void placement;
+---

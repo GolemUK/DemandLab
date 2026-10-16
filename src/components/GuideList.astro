@@ -1,0 +1,5 @@
+---
+import {getCollection} from 'astro:content';import ArticleCard from './ArticleCard.astro';import type {Locale} from '../i18n';
+const {locale}=Astro.props as {locale:Locale};const guides=(await getCollection('guides',({data})=>data.published&&data.locale===locale)).sort((a,b)=>b.data.publishedAt.localeCompare(a.data.publishedAt));
+---
+<div class="editorial-grid">{guides.map(guide=><ArticleCard guide={guide} headingLevel={2}/>)}</div>

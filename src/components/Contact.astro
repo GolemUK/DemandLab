@@ -1,0 +1,7 @@
+---
+import { t, type Locale } from '../i18n';
+import {contactURL} from '../lib/contact';
+const {locale,general=false} = Astro.props as {locale:Locale;general?:boolean}; const d=t(locale).contact;
+const telegram=contactURL(import.meta.env.PUBLIC_TELEGRAM_URL,'telegram'); const viber=contactURL(import.meta.env.PUBLIC_VIBER_URL,'viber');
+---
+<div class="contact-panel" id="contact"><h2>{general?d.generalHeading:d.heading}</h2><p>{general?d.generalText:d.text}</p>{telegram||viber ? <div class="actions">{telegram&&<a class="button secondary" href={telegram} rel="noopener noreferrer">{d.telegram}</a>}{viber&&<a class="button secondary" href={viber} rel="noopener noreferrer">{d.viber}</a>}</div> : <p class="notice">{d.missing}</p>}</div>

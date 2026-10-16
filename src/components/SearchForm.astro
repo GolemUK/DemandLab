@@ -1,0 +1,4 @@
+---
+import {t,href,type Locale} from '../i18n';const {locale}=Astro.props as {locale:Locale};const d=t(locale).editorial;
+---
+<form class="search-form" action={href(locale,'search')} method="get" role="search"><label for="site-search">{d.searchLabel}</label><div><input id="site-search" name="q" type="search" placeholder={d.searchPlaceholder} maxlength="200"/><button class="button" type="submit">{d.searchButton}</button></div><p>{d.searchHint}</p></form>

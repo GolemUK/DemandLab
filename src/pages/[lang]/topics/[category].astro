@@ -1,0 +1,6 @@
+---
+import {getCollection} from 'astro:content';import Layout from '../../../layouts/Layout.astro';import ArticleCard from '../../../components/ArticleCard.astro';import {t,href,type Locale} from '../../../i18n';import type {CategoryId} from '../../../lib/editorial';
+export async function getStaticPaths(){const all=await getCollection('guides',({data})=>data.published);return [...new Set(all.map(g=>g.data.locale+':'+g.data.category))].map(key=>{const [lang,category]=key.split(':');return {params:{lang,category},props:{equivalents:Object.fromEntries(all.filter(g=>g.data.category===category).map(g=>[g.data.locale,href(g.data.locale,'topics/'+category)]))}};});}
+const locale=Astro.params.lang as Locale;const category=Astro.params.category as CategoryId;const e=t(locale).editorial;const guides=await getCollection('guides',({data})=>data.published&&data.locale===locale&&data.category===category);
+---
+<Layout locale={locale} title={e.categories[category]} description={e.categoryDescription} slug={'topics/'+category} equivalents={Astro.props.equivalents}><div class="wrap"><header class="page-heading"><p class="eyebrow">{e.topics}</p><h1>{e.categories[category]}</h1><p>{e.categoryDescription}</p></header><div class="editorial-grid">{guides.map(guide=><ArticleCard guide={guide} headingLevel={2}/>)}</div></div></Layout>

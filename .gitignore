@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.env
+*.log
+.npm-cache/
+.env.*
+!.env.example
+*.zip
+home-preview.png
+verification-*.json
+audit-local.json
+
+audit/
+PROJECT_BRIEF.txt
+FILES.txt
+IMPLEMENTATION_STATUS.md

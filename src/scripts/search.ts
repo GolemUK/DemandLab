@@ -1,0 +1,5 @@
+import {matchesSearch} from '../lib/editorial';
+const input=document.querySelector<HTMLInputElement>('#site-search');
+const form=input?.form;const items=Array.from(document.querySelectorAll<HTMLElement>('[data-search]'));const count=document.querySelector<HTMLElement>('#search-count');const empty=document.querySelector<HTMLElement>('#search-empty');
+function update(){if(!input)return;let total=0;for(const item of items){const show=matchesSearch(item.dataset.search??'',input.value);item.hidden=!show;if(show)total++;}if(count)count.textContent=count.dataset.label+': '+total;if(empty)empty.hidden=total!==0;}
+if(input){input.value=(new URLSearchParams(location.search).get('q')??'').slice(0,200);update();input.addEventListener('input',update);form?.addEventListener('submit',event=>{event.preventDefault();const url=new URL(location.href);if(input.value.trim())url.searchParams.set('q',input.value.trim());else url.searchParams.delete('q');history.replaceState(null,'',url);update();});window.addEventListener('popstate',()=>{input.value=(new URLSearchParams(location.search).get('q')??'').slice(0,200);update();});}

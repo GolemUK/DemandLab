@@ -1,0 +1,6 @@
+---
+import Layout from '../../../layouts/Layout.astro';import OrderRescue from '../../../components/OrderRescue.astro';import {locales,t,href,type Locale} from '../../../i18n';
+export function getStaticPaths(){return locales.map(lang=>({params:{lang}}));}
+const locale=Astro.params.lang as Locale;const d=t(locale);
+---
+<Layout locale={locale} title={d.tool.title} description={d.tool.description} slug="tools/order-rescue"><div class="wrap"><div class="page-heading"><p class="eyebrow">{d.tool.eyebrow}</p><h1>Order Rescue<span class="text-mint">.</span></h1><p>{d.tool.intro}</p></div><OrderRescue locale={locale}/><p class="mt-6"><a class="text-link" href={href(locale,'guides/'+(locale==='uk'?'oblik-zamovlen-bez-crm':'order-tracking-without-crm'))}>{d.support.readGuide}</a></p></div></Layout>
