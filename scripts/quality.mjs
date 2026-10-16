@@ -10,6 +10,7 @@ const steps = [
   ['node_modules/astro/bin/astro.mjs', 'build'],
   ['scripts/verify-build.mjs'],
   ['scripts/verify-release.mjs'],
+  ['scripts/verify-seo.mjs'],
 ];
 for (const args of steps) {
   const result = spawnSync(process.execPath, args, {stdio:'inherit', env:process.env});

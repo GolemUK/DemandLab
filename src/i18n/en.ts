@@ -352,6 +352,7 @@ export default {
     "relatedArticles": "Related reading",
     "relatedTools": "Related tools",
     "read": "Read the guide",
+    "categoryDescriptions": {"technology":"Practical guides to cloud storage, browsers and everyday internet services.","mobile":"Practical guides to smartphone storage, settings and everyday apps.","windows":"Practical guides to Windows settings, files and computer maintenance.","ai":"Practical guides to checking AI output and choosing useful software.","business":"Order tracking, spreadsheets and practical routines for small business operations."},
     "categoryDescription": "Published practical guides in this topic.",
     "planned": "Not published yet",
     "plannedNote": "These topics are part of our editorial scope. Links appear only when a guide is published.",

@@ -23,4 +23,9 @@ jobs:
       - run: npm ci
       - run: npm run build:pages
         env:
-          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://ci.invalid' }}
+      - name: Verify preview indexing policy
+        run: npm run build && node scripts/verify-release.mjs && node scripts/verify-seo.mjs
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://ci.invalid' }}
+          DEPLOY_CONTEXT: preview

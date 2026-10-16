@@ -12,20 +12,28 @@ if(slug.startsWith('guides/'))crumbs.push({name:d.nav.guides,url:href(locale,'gu
 if(slug.startsWith('tools/'))crumbs.push({name:d.nav.tools,url:href(locale,'tools')});
 if(slug)crumbs.push({name:title,url:href(locale,slug)});
 const structured=Astro.site&&slug?{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:crumbs.map((c,i)=>({'@type':'ListItem',position:i+1,name:c.name,item:new URL(c.url,Astro.site).href}))}:undefined;
-const articleData=canonical&&article?{'@context':'https://schema.org','@type':'Article',headline:title,description,inLanguage:locale,datePublished:publishedAt,dateModified:updatedAt,mainEntityOfPage:canonical,publisher:{'@type':'Organization',name:'DemandLab'}}:undefined;
+const articleData=canonical&&article?{'@context':'https://schema.org','@type':'Article',headline:title,description,inLanguage:locale,datePublished:publishedAt,dateModified:updatedAt,mainEntityOfPage:canonical}:undefined;
+const websiteData=Astro.site&&!slug?{'@context':'https://schema.org','@type':'WebSite',name:'DemandLab',url:Astro.site.href,inLanguage:[...locales]}:undefined;
+const appData=canonical&&slug==='tools/order-rescue'?{'@context':'https://schema.org','@type':'SoftwareApplication',name:'Order Rescue',url:canonical,description,applicationCategory:'BusinessApplication',operatingSystem:'Web browser',inLanguage:locale,isAccessibleForFree:true}:undefined;
+const googleVerification=import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const bingVerification=import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 ---
 <!doctype html>
 <html lang={locale}>
 <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title} — DemandLab</title><meta name="description" content={description}/><meta name="theme-color" content="#0B1020"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 {canonical && <link rel="canonical" href={canonical}/>}
+{googleVerification&&<meta name="google-site-verification" content={googleVerification}/>}
+{bingVerification&&<meta name="msvalidate.01" content={bingVerification}/>}
 {Astro.site && locales.filter(l=>!equivalents || equivalents[l]).map(l=><link rel="alternate" hreflang={l} href={new URL(alternate(l),Astro.site).href}/>)}
 <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content={article?'article':'website'}/><meta property="og:site_name" content="DemandLab"/><meta property="og:locale" content={locale==='uk'?'uk_UA':'en_US'}/>{canonical && <meta property="og:url" content={canonical}/>}
 <meta name="twitter:card" content="summary"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/>
 {article&&publishedAt&&<meta property="article:published_time" content={publishedAt}/>}{article&&updatedAt&&<meta property="article:modified_time" content={updatedAt}/>}
 {structured&&<script type="application/ld+json" set:html={jsonLD(structured)}/>}{articleData&&<script type="application/ld+json" set:html={jsonLD(articleData)}/>}
+{websiteData&&<script type="application/ld+json" set:html={jsonLD(websiteData)}/>}{appData&&<script type="application/ld+json" set:html={jsonLD(appData)}/>}
 </head><body>
 <a class="skip" href="#main">{d.footer.skip}</a>
 <header class="site-header"><div class="wrap header-inner"><a class="brand" href={href(locale)} aria-label="DemandLab"><span class="brand-mark" aria-hidden="true"></span><span>Demand<span>Lab</span></span></a><nav class="main-nav" aria-label={d.nav.mainLabel}><a href={href(locale)+'#problems'}>{d.nav.problems}</a>{(['tools','guides','solutions'] as const).map(p=><a href={href(locale,p)} aria-current={slug===p?'page':undefined}>{d.nav[p]}</a>)}</nav><nav class="languages" aria-label={d.footer.language}>{locales.map(l=><a href={alternate(l)} lang={l} hreflang={l} aria-current={l===locale?'page':undefined}>{l.toUpperCase()}</a>)}</nav></div></header>
 <main id="main">{slug&&<nav class="wrap breadcrumbs" aria-label={d.nav.breadcrumb}><ol>{crumbs.map((c,i)=><li>{i===crumbs.length-1?<span aria-current="page">{c.name}</span>:<a href={c.url}>{c.name}</a>}</li>)}</ol></nav>}<slot/></main>
-<footer class="site-footer"><div class="wrap"><div class="footer-top"><div><a class="brand" href={href(locale)}>Demand<span>Lab</span></a><p class="mt-3 max-w-sm text-sm">{d.footer.tagline}</p></div><nav class="footer-links" aria-label={d.nav.footerLabel}><a href={href(locale,'about')}>{d.nav.about}</a><a href={href(locale,'privacy')}>{d.nav.privacy}</a><a href={href(locale,'contact')}>{d.nav.contact}</a></nav></div><div class="footer-bottom"><span>© {new Date().getFullYear()} DemandLab · {d.footer.note}</span><nav class="languages" aria-label={d.footer.language}>{locales.map(l=><a href={alternate(l)} lang={l} hreflang={l} aria-current={l===locale?'page':undefined}>{l.toUpperCase()}</a>)}</nav></div></div></footer>
+<footer class="site-footer"><div class="wrap"><div class="footer-top"><div><a class="brand" href={href(locale)}>Demand<span>Lab</span></a><p class="mt-3 max-w-sm text-sm">{d.footer.tagline}</p></div><nav class="footer-links" aria-label={d.nav.footerLabel}><a href={href(locale,'search')}>{d.editorial.searchPage}</a><a href={href(locale,'about')}>{d.nav.about}</a><a href={href(locale,'privacy')}>{d.nav.privacy}</a><a href={href(locale,'contact')}>{d.nav.contact}</a></nav></div><div class="footer-bottom"><span>© {new Date().getFullYear()} DemandLab · {d.footer.note}</span><nav class="languages" aria-label={d.footer.language}>{locales.map(l=><a href={alternate(l)} lang={l} hreflang={l} aria-current={l===locale?'page':undefined}>{l.toUpperCase()}</a>)}</nav></div></div></footer>
 </body></html>
+
