@@ -12,7 +12,7 @@ updatedAt: "2026-10-16"
 sourcesCheckedAt: "2026-10-16"
 sources: [{"title":"Google storage rules","url":"https://support.google.com/drive/answer/9312312?hl=en"},{"title":"Manage Google storage","url":"https://support.google.com/googleone/answer/6374270?hl=en"},{"title":"Delete photos and videos","url":"https://support.google.com/photos/answer/6128858?hl=en"},{"title":"Free up device space","url":"https://support.google.com/photos/answer/6128843?hl=en"},{"title":"Gmail search operators","url":"https://support.google.com/mail/answer/7190?hl=en"},{"title":"Delete files in Drive","url":"https://support.google.com/drive/answer/2375102?hl=en"},{"title":"Export Google data","url":"https://support.google.com/accounts/answer/3024190?hl=en"}]
 image: {"src":"/images/storage-en.svg","alt":"Phone storage and Google cloud quota are separate"}
-relatedArticles: []
+relatedArticles: [windows-storage-space]
 relatedTools: []
 ---
 
