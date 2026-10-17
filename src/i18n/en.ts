@@ -1,4 +1,38 @@
 export default {
+  cover: {
+  "title": "Understand the tech. Find the next step.",
+  "description": "Practical reading for digital life, from cloud storage to everyday work. Find the cause, check the sources and choose what to do next.",
+  "browse": "Explore the articles",
+  "tools": "Free tools",
+  "start": "Start with a question",
+  "promiseTitle": "Understand first. Take action next.",
+  "promiseText": "Our guides bring together clear steps, source links and warnings before actions that could delete your data.",
+  "about": "Our editorial approach",
+  "readNext": "Your next read",
+  "library": "A library of solutions",
+  "doMore": "From reading to doing",
+  "inBrowser": "In your browser",
+  "principlesTitle": "Useful by design.",
+  "menu": "Menu",
+  "principles": [
+    [
+      "A real problem",
+      "Every article starts with a question you might recognise from everyday life."
+    ],
+    [
+      "Clear next steps",
+      "Understand what to check and why before changing your settings."
+    ],
+    [
+      "Traceable sources",
+      "Source links and verification dates help you judge how current the advice is."
+    ],
+    [
+      "Private by default",
+      "Order Rescue processes CSV files locally. Your files are not sent to a server."
+    ]
+  ]
+},
   "nav": {
     "problems": "Topics",
     "tools": "Free tools",
