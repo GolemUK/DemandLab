@@ -11,3 +11,30 @@
 .breadcrumbs{padding-top:20px;font-size:.8rem;color:#a5b1c6}.breadcrumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px 10px;padding:0;margin:0}.breadcrumbs li{overflow-wrap:anywhere}.breadcrumbs li+li:before{content:"/";margin-right:10px}.breadcrumbs a:hover{color:#36d7c3}.contact-panel h2{font-size:1.5rem}.guide-card,.feature-story>*,.feature-card>*{min-width:0}h1,h2,h3{overflow-wrap:break-word}.button:disabled:hover{transform:none}.button:active{transform:translateY(1px)}
 
 .guide-card h2{font-size:1.75rem;max-width:730px}
+
+/* Raised navigation controls remain comfortable to tap on small screens. */
+nav.main-nav{gap:10px;flex-wrap:wrap}
+.main-nav>a,.footer-links>a,.languages>a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  border:1px solid #405170;border-radius:10px;padding:10px 15px;
+  background:linear-gradient(180deg,#26344e,#182238);color:#e4ebfa;
+  box-shadow:inset 0 1px 0 #ffffff12,0 3px 0 #080e1a,0 5px 12px #00000026;
+  font-weight:600;line-height:1.35;text-align:center;
+  transition:background .15s,border-color .15s,box-shadow .15s,transform .15s;
+}
+.main-nav>a:hover,.footer-links>a:hover,.languages>a:hover{
+  color:#fff;border-color:#829aff;background:linear-gradient(180deg,#344769,#22324e);
+  transform:translateY(-1px);box-shadow:inset 0 1px 0 #ffffff18,0 4px 0 #080e1a,0 7px 16px #00000030;
+}
+.main-nav>a[aria-current],.languages>a[aria-current=page]{
+  color:#aff7ec;border-color:#46b9ac;background:linear-gradient(180deg,#234c51,#17353d);
+}
+.main-nav>a:active,.footer-links>a:active,.languages>a:active{
+  transform:translateY(2px);box-shadow:inset 0 2px 4px #00000026,0 1px 0 #080e1a;
+}
+.languages{gap:6px;padding:0;border:0;background:transparent}
+.languages>a{min-width:44px;padding:8px 10px;border-radius:9px}
+.footer-links{gap:10px;align-items:flex-start}
+@media(max-width:1100px){.header-inner{flex-wrap:wrap;padding:20px 0;gap:18px}nav.main-nav{order:3;width:100%;justify-content:flex-start}}
+@media(max-width:640px){nav.main-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:.84rem}.main-nav>a{padding:11px 10px;min-height:48px}.footer-links>a{font-size:.84rem}}
+@media(prefers-reduced-motion:reduce){.main-nav>a,.footer-links>a,.languages>a{transition:none;transform:none}}
