@@ -17,6 +17,9 @@ export function staticSEO(site, preview=false){return {name:'demandlab-static-se
  if(site && !preview){
  const escape=value=>value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
  const xml='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+pages.sort().map(route=>'<url><loc>'+escape(new URL(route,site).href)+'</loc></url>').join('')+'</urlset>\n';
- await writeFile(path.join(output,'sitemap.xml'),xml);lines.push('Sitemap: '+new URL('/sitemap.xml',site).href);
+ await writeFile(path.join(output,'sitemap.xml'),xml);
+ const index='<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>'+escape(new URL('/sitemap.xml',site).href)+'</loc></sitemap></sitemapindex>\n';
+ await writeFile(path.join(output,'sitemap-index.xml'),index);
+ lines.push('Sitemap: '+new URL('/sitemap.xml',site).href);
  }await writeFile(path.join(output,'robots.txt'),lines.join('\n')+'\n');
 }}};}

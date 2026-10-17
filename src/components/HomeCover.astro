@@ -1,0 +1,37 @@
+---
+import AdSlot from './AdSlot.astro';
+import {getCollection} from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+import SearchForm from './SearchForm.astro';
+import {categoryIds} from '../lib/editorial';
+import {t,href,type Locale} from '../i18n';
+const {locale}=Astro.props as {locale:Locale};
+const d=t(locale),e=d.editorial,h=d.cover;
+const guides=await getCollection('guides',({data})=>data.published&&data.locale===locale);
+const featured=guides.find(g=>g.data.translationKey==='google-storage-full')??guides[0];
+const latest=guides.filter(g=>g.id!==featured?.id).sort((a,b)=>b.data.publishedAt.localeCompare(a.data.publishedAt));
+const topics=categoryIds.filter(category=>guides.some(g=>g.data.category===category));
+---
+<div class="wrap editorial-home">
+  <section class="cover-intro" aria-labelledby="cover-title">
+    <div><p class="eyebrow"><span class="editorial-dot" aria-hidden="true"></span>{e.eyebrow}</p><h1 id="cover-title">{h.title}</h1></div>
+    <div class="cover-summary"><p>{h.description}</p><div class="actions"><a class="button" href={href(locale,'guides')}>{h.browse}<span aria-hidden="true">↗</span></a><a class="button secondary" href={href(locale,'tools')}>{h.tools}</a></div></div>
+  </section>
+  <div class="cover-grid">
+    {featured&&<article class="cover-feature" aria-labelledby="feature-title">
+      <div class="cover-feature-heading"><span class="eyebrow">{e.featured}</span><a class="category-pill" href={href(locale,'topics/'+featured.data.category)}>{e.categories[featured.data.category]}</a></div>
+      <div class="cover-illustration" aria-hidden="true"><svg viewBox="0 0 600 220" fill="none"><path d="M75 69h450M75 151h450" stroke="#2a425a" stroke-dasharray="5 8"/><rect x="216" y="25" width="168" height="165" rx="24" fill="#152539" stroke="#43617b"/><path d="M264 104a24 24 0 014-47 35 35 0 0165 12 20 20 0 01-3 40h-65" stroke="#80cfc4" stroke-width="3"/><rect x="245" y="137" width="110" height="9" rx="4.5" fill="#293c50"/><rect x="245" y="137" width="91" height="9" rx="4.5" fill="#7c9df2"/><path d="M352 151l9-16 9 16z" fill="#edc37c"/><rect x="54" y="46" width="112" height="60" rx="12" fill="#152539" stroke="#36516d"/><path d="M88 65h44v26H88zM88 65l22 15 22-15" stroke="#90a8cc" stroke-width="2"/><rect x="434" y="116" width="112" height="60" rx="12" fill="#152539" stroke="#36516d"/><path d="M474 157l10-15 8 8 7-9 10 16h-35z" stroke="#90a8cc" stroke-width="2"/><circle cx="478" cy="133" r="4" fill="#80cfc4"/></svg></div>
+      <div class="cover-feature-body"><h2 id="feature-title"><a href={href(locale,'guides/'+featured.data.slug)}>{featured.data.title}</a></h2><p>{featured.data.description}</p><div class="cover-feature-footer"><a class="button" href={href(locale,'guides/'+featured.data.slug)}>{e.read}<span aria-hidden="true">↗</span></a><span>{e.checked}<time datetime={featured.data.sourcesCheckedAt}>{featured.data.sourcesCheckedAt}</time></span></div></div>
+    </article>}
+    <aside class="cover-side" aria-label={h.start}>
+      <section class="cover-search"><p class="eyebrow">{h.start}</p><h2>{e.searchTitle}</h2><SearchForm locale={locale}/><div class="quick-topics">{topics.map(category=><a href={href(locale,'topics/'+category)}>{e.categories[category]}<span aria-hidden="true">↗</span></a>)}</div></section>
+      <section class="editorial-note"><span class="note-mark" aria-hidden="true">↳</span><div><h2>{h.promiseTitle}</h2><p>{h.promiseText}</p><a class="text-link" href={href(locale,'about')}>{h.about} →</a></div></section>
+    </aside>
+  </div>
+  {latest.length>0&&<section class="section cover-latest"><div class="section-heading"><div><p class="eyebrow">{h.readNext}</p><h2>{e.latest}</h2></div><a class="text-link" href={href(locale,'guides')}>{e.all} →</a></div><div class="editorial-grid">{latest.map(guide=><ArticleCard guide={guide}/>)}</div></section>}
+  <AdSlot placement="home-after-articles"/>
+  {topics.length>0&&<section class="section" id="problems"><div class="section-heading"><div><p class="eyebrow">{h.library}</p><h2>{e.topics}</h2></div></div><div class="cover-topics">{topics.map((category,i)=><a class="topic-card" href={href(locale,'topics/'+category)}><span class="topic-number" aria-hidden="true">0{i+1}</span><div><h3>{e.categories[category]}</h3><p>{e.categoryDescriptions[category]}</p></div><span class="topic-arrow" aria-hidden="true">↗</span></a>)}</div></section>}
+  <section class="section"><div class="section-heading"><div><p class="eyebrow">{h.doMore}</p><h2>{e.tools}</h2></div><a class="text-link" href={href(locale,'tools')}>{h.tools} →</a></div><div class="cover-tool"><div><span class="tool-label">CSV · {h.inBrowser}</span><h3>Order Rescue<span>.</span></h3><p>{d.home.toolDesc}</p><a class="button" href={href(locale,'tools/order-rescue')}>{d.home.toolAction}<span aria-hidden="true">↗</span></a></div><div class="tool-process"><ol>{d.home.workflow.map((step,i)=><li><span aria-hidden="true">0{i+1}</span>{step}</li>)}</ol><p class="privacy-note">{d.home.local}</p><p>{d.home.noAccount}</p></div></div></section>
+  <section class="section principles"><div class="section-heading"><div><p class="eyebrow">DemandLab</p><h2>{h.principlesTitle}</h2></div><a class="text-link" href={href(locale,'about')}>{h.about} →</a></div><div class="principles-grid">{h.principles.map(([title,text])=><div><h3>{title}</h3><p>{text}</p></div>)}</div></section>
+  <section class="business-strip"><div><p class="eyebrow">{e.business}</p><h2>{e.businessLink}</h2><p>{e.businessText}</p></div><a class="button secondary" href={href(locale,'solutions')}>{e.businessLink}<span aria-hidden="true">↗</span></a></section>
+</div>
