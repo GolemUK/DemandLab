@@ -6,10 +6,10 @@ slug: "google-storage-still-full"
 translationKey: "google-storage-full"
 published: true
 category: "technology"
-tags: ["Google","storage","Gmail","Drive","Photos","backup"]
+tags: ["Google","Google storage full after deleting files","Google Drive storage full","Gmail storage","Google Photos","phone storage vs cloud storage","Google Trash","backups"]
 publishedAt: "2026-10-16"
-updatedAt: "2026-10-16"
-sourcesCheckedAt: "2026-10-16"
+updatedAt: "2026-10-19"
+sourcesCheckedAt: "2026-10-19"
 sources: [{"title":"Google storage rules","url":"https://support.google.com/drive/answer/9312312?hl=en"},{"title":"Manage Google storage","url":"https://support.google.com/googleone/answer/6374270?hl=en"},{"title":"Delete photos and videos","url":"https://support.google.com/photos/answer/6128858?hl=en"},{"title":"Free up device space","url":"https://support.google.com/photos/answer/6128843?hl=en"},{"title":"Gmail search operators","url":"https://support.google.com/mail/answer/7190?hl=en"},{"title":"Delete files in Drive","url":"https://support.google.com/drive/answer/2375102?hl=en"},{"title":"Export Google data","url":"https://support.google.com/accounts/answer/3024190?hl=en"}]
 image: {"src":"/images/storage-en.svg","alt":"Phone storage and Google cloud quota are separate"}
 relatedArticles: [windows-storage-space]
@@ -58,7 +58,7 @@ Use Drive's storage view to identify large files. Check who owns them: removing 
 
 Review large videos and the backup account first. Some older Storage saver photos uploaded before June 1, 2021 did not count toward quota; deleting those cannot free counted space. Compare the item information with the [quota rules](https://support.google.com/drive/answer/9312312?hl=en).
 
-> **Photo deletion can affect devices.** Deleting through Google Photos can also remove device copies and copies on devices with backup enabled. Do not use deletion as a trial. Read Google's [photo deletion instructions](https://support.google.com/photos/answer/6128858?hl=en) for your platform first. Cloud-only removal requires a different workflow.
+> **Photo deletion can affect devices.** Deleting an item in Google Photos can also remove it from your phone and from other devices where backup is on for that content. Do not use deletion as a trial. Google Photos has separate procedures for removing only a local copy or only the cloud copy; the right steps depend on your intended result and backup settings. Read Google's [photo deletion instructions](https://support.google.com/photos/answer/6128858?hl=en) for your platform first.
 
 ## 6. Account for backups and other storage
 
@@ -68,6 +68,6 @@ If you need an archive, [Google Takeout](https://support.google.com/accounts/ans
 
 ## 7. Recheck instead of repeatedly deleting
 
-After substantial deletion, Google says usage can take up to 48–72 hours to update. During that time, compare against your note and check whether new uploads or backups are adding data. Avoid repeated irreversible cleanup while the counter catches up.
+After emptying trash, recheck the total after a short period; if it is still full after 30 minutes, Google recommends advanced storage checks. After deleting a large number of files, accurate totals can take up to 48–72 hours to update. These are separate steps: first check the other services, backups and account, rather than repeating irreversible cleanup because the counter has not changed. See Google's [storage-management guidance](https://support.google.com/drive/answer/6374270?hl=en).
 
 If usage still does not make sense, prepare the account, service totals, timestamps and actions for Google support. Do not share passwords or private files publicly. The aim is to identify the cause—not to keep deleting until a number changes.
