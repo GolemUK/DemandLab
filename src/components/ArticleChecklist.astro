@@ -1,0 +1,8 @@
+---
+interface Props { title:string; items:string[] }
+const {title,items}=Astro.props;
+---
+{items.length>0&&<section class="article-checklist" aria-labelledby="article-checklist-title">
+  <h2 id="article-checklist-title">{title}</h2>
+  <ul>{items.map(item=><li><span class="checkmark" aria-hidden="true">✓</span><span>{item}</span></li>)}</ul>
+</section>}

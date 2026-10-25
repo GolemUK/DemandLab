@@ -1,15 +1,21 @@
 import { readdir,writeFile,readFile,appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { transformArticleHtml } from './article-design.mjs';
 export function staticSEO(site, preview=false){return {name:'demandlab-static-seo',hooks:{'astro:build:done':async({dir})=>{
  const output=fileURLToPath(dir);const lines=['User-agent: *','Allow: /'];const pages=[];
  async function walk(folder){for(const entry of await readdir(folder,{withFileTypes:true})){
   const file=path.join(folder,entry.name);
   if(entry.isDirectory()){await walk(file);continue;}
-  if(preview && entry.name.endsWith('.html')){
-   const html=(await readFile(file,'utf8')).replace(/<meta\s+name="robots"[^>]*>/g,'');
+  if(entry.name.endsWith('.html')){
+   let html=await readFile(file,'utf8');
+   if(/^(?:uk|en)\/guides\/[^/]+\/index\.html$/.test(path.relative(output,file).split(path.sep).join('/')))html=transformArticleHtml(html);
+   if(preview){
+    html=html.replace(/<meta\s+name="robots"[^>]*>/g,'');
    const meta='<meta name="robots" content="noindex, nofollow">';
-   await writeFile(file,html.includes('</head>')?html.replace('</head>',meta+'</head>'):html.replace('<title>',meta+'<title>'));
+    html=html.includes('</head>')?html.replace('</head>',meta+'</head>'):html.replace('<title>',meta+'<title>');
+   }
+   if(html!==(await readFile(file,'utf8')))await writeFile(file,html);
   }
   if(entry.name==='index.html'){const route=path.relative(output,path.dirname(file)).split(path.sep).join('/');if(route && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(route.split('/')[0]))pages.push('/'+route+'/');}
  }}await walk(output);

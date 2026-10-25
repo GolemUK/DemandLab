@@ -9,7 +9,7 @@ const {locale}=Astro.props as {locale:Locale};
 const d=t(locale),e=d.editorial,h=d.cover;
 const guides=await getCollection('guides',({data})=>data.published&&data.locale===locale);
 const featured=guides.find(g=>g.data.translationKey==='google-storage-full')??guides[0];
-const latest=guides.filter(g=>g.id!==featured?.id).sort((a,b)=>b.data.publishedAt.localeCompare(a.data.publishedAt));
+const latest=guides.filter(g=>g.id!==featured?.id).sort((a,b)=>b.data.publishedAt!.localeCompare(a.data.publishedAt!));
 const topics=categoryIds.filter(category=>guides.some(g=>g.data.category===category));
 ---
 <div class="wrap editorial-home">

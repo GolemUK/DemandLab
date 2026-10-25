@@ -1,0 +1,8 @@
+---
+interface Props { image?: {src:string;alt:string;width:number;height:number;caption?:string} }
+const {image}=Astro.props;
+---
+{image&&<figure class="article-figure">
+  <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+  {image.caption&&<figcaption>{image.caption}</figcaption>}
+</figure>}

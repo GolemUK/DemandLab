@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  categoryHref: string;
+  publishedAt: string;
+  updatedAt: string;
+  tags: string[];
+  publishedLabel: string;
+  updatedLabel: string;
+  backLabel: string;
+  backHref: string;
+  tagsLabel: string;
+}
+const p = Astro.props;
+---
+<header class="article-header wrap">
+  <a class="eyebrow article-category" href={p.categoryHref}>{p.category}</a>
+  <h1>{p.title}</h1>
+  <p class="article-deck">{p.description}</p>
+  <div class="article-meta" aria-label={`${p.publishedLabel} ${p.publishedAt}; ${p.updatedLabel} ${p.updatedAt}`}>
+    <span><span>{p.publishedLabel}</span><time datetime={p.publishedAt}>{p.publishedAt}</time></span>
+    <span><span>{p.updatedLabel}</span><time datetime={p.updatedAt}>{p.updatedAt}</time></span>
+  </div>
+  <ul class="article-tags" aria-label={p.tagsLabel}>
+    {p.tags.map(tag => <li>{tag}</li>)}
+  </ul>
+  <a class="article-back" href={p.backHref}>← {p.backLabel}</a>
+</header>

@@ -8,10 +8,10 @@ published: true
 category: "technology"
 tags: ["Google","сховище Google заповнене","Google Диск заповнений","Gmail","Google Фото","пам’ять телефона і хмара","кошик Google","резервні копії"]
 publishedAt: "2026-10-16"
-updatedAt: "2026-10-19"
-sourcesCheckedAt: "2026-10-19"
+updatedAt: "2026-10-25"
+sourcesCheckedAt: "2026-10-25"
 sources: [{"title":"Правила сховища Google (англійською)","url":"https://support.google.com/drive/answer/9312312?hl=en"},{"title":"Керування сховищем Google (англійською)","url":"https://support.google.com/googleone/answer/6374270?hl=en"},{"title":"Видалення фотографій і відео (англійською)","url":"https://support.google.com/photos/answer/6128858?hl=en"},{"title":"Звільнення місця на пристрої (англійською)","url":"https://support.google.com/photos/answer/6128843?hl=en"},{"title":"Оператори пошуку Gmail (англійською)","url":"https://support.google.com/mail/answer/7190?hl=en"},{"title":"Видалення файлів у Drive (англійською)","url":"https://support.google.com/drive/answer/2375102?hl=en"},{"title":"Експорт даних Google (англійською)","url":"https://support.google.com/accounts/answer/3024190?hl=en"}]
-image: {"src":"/images/storage-uk.svg","alt":"Пам’ять телефона та хмарна квота Google — окремі сховища"}
+image: {"src":"/images/storage-uk.svg","alt":"Пам’ять телефона та хмарна квота Google — окремі сховища","width":960,"height":300,"caption":"На телефоні зберігаються локальні файли; в акаунті Google спільна квота охоплює Drive, Gmail і Photos."}
 relatedArticles: [windows-storage-space]
 relatedTools: []
 ---

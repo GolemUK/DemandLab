@@ -382,6 +382,8 @@ export default {
     "updated": "Updated",
     "checked": "Sources checked",
     "toc": "In this guide",
+    "tags": "Article topics",
+    "checklist": "Before you finish",
     "sources": "Official sources & references",
     "relatedArticles": "Related reading",
     "relatedTools": "Related tools",

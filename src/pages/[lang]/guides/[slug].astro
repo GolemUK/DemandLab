@@ -1,8 +1,61 @@
 ---
+import {getCollection,render,type CollectionEntry} from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import ArticleHeader from '../../../components/ArticleHeader.astro';
+import ArticleTOC from '../../../components/ArticleTOC.astro';
+import ArticleFigure from '../../../components/ArticleFigure.astro';
+import ArticleSources from '../../../components/ArticleSources.astro';
+import ArticleChecklist from '../../../components/ArticleChecklist.astro';
+import RelatedArticles from '../../../components/RelatedArticles.astro';
 import AdSlot from '../../../components/AdSlot.astro';
-import {getCollection,render,type CollectionEntry} from 'astro:content';import Layout from '../../../layouts/Layout.astro';import ArticleCard from '../../../components/ArticleCard.astro';import {t,href,type Locale} from '../../../i18n';
-export async function getStaticPaths(){const guides=await getCollection('guides',({data})=>data.published);return guides.map(guide=>({params:{lang:guide.data.locale,slug:guide.data.slug},props:{guide,equivalents:Object.fromEntries(guides.filter(g=>g.data.translationKey===guide.data.translationKey).map(g=>[g.data.locale,href(g.data.locale,'guides/'+g.data.slug)]))}}));}
+import {t,href,type Locale} from '../../../i18n';
+
+export async function getStaticPaths(){
+  const guides=await getCollection('guides',({data})=>data.published);
+  return guides.map(guide=>({
+    params:{lang:guide.data.locale,slug:guide.data.slug},
+    props:{guide,equivalents:Object.fromEntries(guides.filter(g=>g.data.translationKey===guide.data.translationKey).map(g=>[g.data.locale,href(g.data.locale,'guides/'+g.data.slug)]))}
+  }));
+}
+
 interface Props {guide:CollectionEntry<'guides'>;equivalents:Partial<Record<Locale,string>>}
-const {guide,equivalents}=Astro.props;const g=guide.data;const locale=g.locale;const d=t(locale);const e=d.editorial;const {Content,headings}=await render(guide);const related=await getCollection('guides',({data})=>data.published&&data.locale===locale&&g.relatedArticles.includes(data.translationKey)&&data.translationKey!==g.translationKey);
+const {guide,equivalents}=Astro.props;
+const g=guide.data;
+const locale=g.locale;
+const d=t(locale);
+const e=d.editorial;
+const {Content,headings}=await render(guide);
+const related=await getCollection('guides',({data})=>data.published&&data.locale===locale&&g.relatedArticles.includes(data.translationKey)&&data.translationKey!==g.translationKey);
 ---
-<Layout locale={locale} title={g.seo.title??g.title} description={g.seo.description??g.description} slug={'guides/'+g.slug} equivalents={equivalents} article={true} publishedAt={g.publishedAt} updatedAt={g.updatedAt}><div class="wrap"><header class="page-heading article-header"><a class="eyebrow" href={href(locale,'topics/'+g.category)}>{e.categories[g.category]}</a><h1>{g.title}</h1><p>{g.description}</p><div class="article-meta"><span>{e.published}: <time datetime={g.publishedAt}>{g.publishedAt}</time></span><span>{e.updated}: <time datetime={g.updatedAt}>{g.updatedAt}</time></span></div><p class="tags">{g.tags.join(' · ')}</p><a class="text-link" href={href(locale,'guides')}>← {d.support.backGuides}</a></header><article class="article">{g.image&&<figure><img src={g.image.src} alt={g.image.alt} width="960" height="300"/>{g.image.caption&&<figcaption>{g.image.caption}</figcaption>}</figure>}{headings.some(h=>h.depth===2)&&<nav class="toc panel" aria-label={e.toc}><h2>{e.toc}</h2><ol>{headings.filter(h=>h.depth===2||h.depth===3).map(h=><li class:list={{'toc-sub':h.depth===3}}><a href={'#'+h.slug}>{h.text}</a></li>)}</ol></nav>}<Content/><AdSlot placement="article-after-content"/><section class="sources panel"><h2>{e.sources}</h2><p>{e.checked}: <time datetime={g.sourcesCheckedAt}>{g.sourcesCheckedAt}</time></p><ul>{g.sources.map(s=><li><a href={s.url}>{s.title}</a></li>)}</ul></section>{related.length>0&&<aside><h2>{e.relatedArticles}</h2>{related.map(guide=><ArticleCard guide={guide}/>)}</aside>}{g.relatedTools.includes('order-rescue')&&<aside class="panel mt-10"><h2>{e.relatedTools}</h2><p>{d.support.relatedText}</p><a class="button" href={href(locale,'tools/order-rescue')}>Order Rescue ↗</a></aside>}</article></div></Layout>
+<Layout locale={locale} title={g.seo.title??g.title} description={g.seo.description??g.description} slug={'guides/'+g.slug} equivalents={equivalents} article={true} publishedAt={g.publishedAt!} updatedAt={g.updatedAt!}>
+  <ArticleHeader
+    title={g.title}
+    description={g.description}
+    category={e.categories[g.category]}
+    categoryHref={href(locale,'topics/'+g.category)}
+    publishedAt={g.publishedAt!}
+    updatedAt={g.updatedAt!}
+    tags={g.tags}
+    publishedLabel={e.published}
+    updatedLabel={e.updated}
+    backLabel={d.support.backGuides}
+    backHref={href(locale,'guides')}
+    tagsLabel={e.tags}
+  />
+  <div class="article-layout wrap">
+    <ArticleTOC headings={headings} label={e.toc}/>
+    <article class="article">
+      <ArticleFigure image={g.image}/>
+      <div class="article-body"><Content/></div>
+      <ArticleChecklist items={g.checklist??[]} title={e.checklist}/>
+      <AdSlot placement="article-after-content"/>
+      <ArticleSources title={e.sources} checkedLabel={e.checked} checkedAt={g.sourcesCheckedAt??''} sources={g.sources}/>
+      <RelatedArticles guides={related} title={e.relatedArticles}/>
+      {g.relatedTools.includes('order-rescue')&&<aside class="related-tool panel">
+        <p class="eyebrow">{e.relatedTools}</p>
+        <p>{d.support.relatedText}</p>
+        <a class="button" href={href(locale,'tools/order-rescue')}>Order Rescue ↗</a>
+      </aside>}
+    </article>
+  </div>
+</Layout>

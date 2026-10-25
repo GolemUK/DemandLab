@@ -1,0 +1,9 @@
+---
+interface Props { title:string; checkedLabel:string; checkedAt:string; sources:{title:string;url:string}[] }
+const {title,checkedLabel,checkedAt,sources}=Astro.props;
+---
+{sources.length>0&&<section class="article-sources" aria-labelledby="article-sources-title">
+  <p class="eyebrow">{checkedLabel} <time datetime={checkedAt}>{checkedAt}</time></p>
+  <h2 id="article-sources-title">{title}</h2>
+  <ul>{sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}<span aria-hidden="true"> ↗</span></a></li>)}</ul>
+</section>}

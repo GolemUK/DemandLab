@@ -8,8 +8,8 @@ published: true
 category: mobile
 tags: [Android, app permissions, privacy, camera, microphone, location]
 publishedAt: "2026-10-18"
-updatedAt: "2026-10-18"
-sourcesCheckedAt: "2026-10-18"
+updatedAt: "2026-10-25"
+sourcesCheckedAt: "2026-10-25"
 sources:
   - title: "Android Help: Change app permissions on your Android phone"
     url: "https://support.google.com/android/answer/9431959?hl=en"
@@ -19,11 +19,18 @@ sources:
     url: "https://support.google.com/android/answer/13982201?hl=en"
 relatedArticles: []
 relatedTools: []
+image: {src: "/images/android-flow-en.svg", alt: "Diagram: review one Android app permission, choose the needed access level and test the feature", width: 960, height: 300, caption: "Menu paths and available options vary by device."}
+checklist:
+  - Confirm the app name and the specific permission you are reviewing.
+  - Choose the least access level that supports the feature you need.
+  - Test the feature after changing access; adjust only that permission if needed.
 ---
 
 An app can ask Android for access to your camera, microphone, contacts, photos or location. A permission lets the app use that device feature. Reviewing permissions from time to time helps you keep the access you need and remove access you no longer want to grant.
 
 Menu names vary by Android version and phone manufacturer. If the path below does not match your phone, search Settings for **Permissions**, **Privacy** or the app’s own settings page.
+
+> **The diagram shows a general review process.** It is not a screenshot; menu names on your device may differ.
 
 ## Check permissions for one app
 
@@ -37,7 +44,7 @@ After changing a permission, test the relevant feature. Navigation may need loca
 
 On devices that support the **Privacy dashboard**, open **Settings → Security & privacy** or **Privacy → Privacy dashboard**. Select a permission such as camera, microphone or location to review which apps accessed it and when.
 
-The history period depends on Android version: Google’s help says the dashboard shows up to seven days on Android 13 and 24 hours on Android 12. Manufacturers may place the screen elsewhere. It helps you review recent permission use; it is not a complete log of everything an app does.
+> **History period:** Google Help lists up to seven days on Android 13 and 24 hours on Android 12. The dashboard shows recent permission use, not a complete log of everything an app does.
 
 ## Review permissions by data type
 
