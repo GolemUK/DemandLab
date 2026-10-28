@@ -56,6 +56,7 @@ const related=await getCollection('guides',({data})=>data.published&&data.locale
         <p>{d.support.relatedText}</p>
         <a class="button" href={href(locale,'tools/order-rescue')}>Order Rescue ↗</a>
       </aside>}
+      {g.relatedTools.includes('profit-calculator')&&<aside class="related-tool panel"><p class="eyebrow">{e.relatedTools}</p><p>{d.profitCalculator.description}</p><a class="button" href={href(locale,'tools/profit-calculator')}>{d.profitCalculator.open} ↗</a></aside>}
     </article>
   </div>
 </Layout>

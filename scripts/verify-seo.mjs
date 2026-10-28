@@ -44,7 +44,7 @@ for(const [route,{html,links,anchors}] of pages){
    if(d['@type']==='Article'&&(!d.headline||!d.datePublished||!d.dateModified||d.mainEntityOfPage!==site+route||d.dateModified<d.datePublished))fail('invalid Article');
    if(d['@type']==='BreadcrumbList'&&(!Array.isArray(d.itemListElement)||d.itemListElement.some((x,i)=>x.position!==i+1||!x.name||!pages.has(new URL(x.item).pathname))))fail('invalid BreadcrumbList');
    if(d['@type']==='WebSite'&&(!d.name||d.url!==site+'/'))fail('invalid WebSite');
-   if(d['@type']==='SoftwareApplication'&&(!route.endsWith('/tools/order-rescue/')||d.url!==site+route||!d.name))fail('invalid application');
+   if(d['@type']==='SoftwareApplication'&&(!route.includes('/tools/')||route==='/uk/tools/'||route==='/en/tools/'||d.url!==site+route||!d.name||!d.applicationCategory||d.isAccessibleForFree!==true))fail('invalid application');
   }catch{fail('malformed JSON-LD');}
  }
 }

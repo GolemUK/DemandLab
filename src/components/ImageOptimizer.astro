@@ -1,0 +1,30 @@
+---
+import {t,type Locale} from '../i18n';
+const {locale}=Astro.props as {locale:Locale};
+const d=t(locale).imageOptimizer;
+---
+<section class="image-tool" id="image-optimizer" data-locale={locale} data-copy={JSON.stringify(d.client)} aria-labelledby="image-tool-title">
+  <p class="message">{d.privacy}</p>
+  <div class="panel image-settings">
+    <div class="image-drop-zone" data-drop-zone>
+      <label for="image-files"><strong>{d.choose}</strong><span>{d.drop}</span><small>{d.limits}</small></label>
+      <input id="image-files" type="file" accept="image/jpeg,image/png,image/webp" multiple/>
+    </div>
+    <div class="image-settings-grid">
+      <div class="field"><label for="image-width">{d.width}</label><input id="image-width" type="number" min="1" max="10000" step="1" placeholder="—" inputmode="numeric"/></div>
+      <div class="field"><label for="image-height">{d.height}</label><input id="image-height" type="number" min="1" max="10000" step="1" placeholder="—" inputmode="numeric"/></div>
+      <label class="check-label image-ratio"><input type="checkbox" checked id="image-ratio"/><span>{d.lockRatio}</span></label>
+      <div class="field"><label for="image-format">{d.format}</label><select id="image-format"><option value="webp">WebP</option><option value="jpeg">JPEG</option><option value="png">PNG</option></select></div>
+      <div class="field" data-quality-field><label for="image-quality">{d.quality} <output for="image-quality" data-quality-value>82%</output></label><input id="image-quality" type="range" min="10" max="100" value="82"/></div>
+      <div class="field jpeg-background" data-background-field hidden><label for="image-background">{d.background}</label><input id="image-background" type="color" value="#ffffff"/></div>
+    </div>
+    <p class="notice">{d.formatHelp}</p><p class="notice">{d.metadataNote}</p>
+    <div class="actions"><button class="button" type="button" data-process disabled>{d.process}</button><button class="button secondary" type="button" data-zip disabled>{d.downloadZip}</button><button class="button secondary" type="button" data-clear disabled>{d.clear}</button></div>
+    <p class="notice" data-progress role="status" aria-live="polite">{d.empty}</p><p class="message error" data-error role="alert" hidden></p>
+  </div>
+  <section class="panel" aria-labelledby="image-tool-title"><div class="tool-top"><div><p class="eyebrow">{d.results}</p><h2 id="image-tool-title">{d.results}</h2></div></div>
+    <p class="notice">{d.footer}</p><div class="image-card-grid" data-image-cards></div>
+    <div class="image-batch-summary" data-batch-summary hidden><h3>{d.summary}</h3><dl><div><dt>{d.inputTotal}</dt><dd data-total-input></dd></div><div><dt>{d.outputTotal}</dt><dd data-total-output></dd></div><div><dt>{d.difference}</dt><dd data-total-saved></dd></div></dl></div>
+  </section>
+</section>
+<script>import '../scripts/image-optimizer';</script>

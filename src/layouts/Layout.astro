@@ -15,7 +15,8 @@ if(slug)crumbs.push({name:title,url:href(locale,slug)});
 const structured=Astro.site&&slug?{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:crumbs.map((c,i)=>({'@type':'ListItem',position:i+1,name:c.name,item:new URL(c.url,Astro.site).href}))}:undefined;
 const articleData=canonical&&article?{'@context':'https://schema.org','@type':'Article',headline:title,description,inLanguage:locale,datePublished:publishedAt,dateModified:updatedAt,mainEntityOfPage:canonical}:undefined;
 const websiteData=Astro.site&&!slug?{'@context':'https://schema.org','@type':'WebSite',name:'DemandLab',url:Astro.site.href,inLanguage:[...locales]}:undefined;
-const appData=canonical&&slug==='tools/order-rescue'?{'@context':'https://schema.org','@type':'SoftwareApplication',name:'Order Rescue',url:canonical,description,applicationCategory:'BusinessApplication',operatingSystem:'Web browser',inLanguage:locale,isAccessibleForFree:true}:undefined;
+const appDetails:Record<string,{name:string;category:string}>={'tools/order-rescue':{name:'Order Rescue',category:'BusinessApplication'},'tools/profit-calculator':{name:d.profitCalculator.title,category:'FinanceApplication'},'tools/image-optimizer':{name:d.imageOptimizer.title,category:'MultimediaApplication'}};
+const appData=canonical&&appDetails[slug]?{'@context':'https://schema.org','@type':'SoftwareApplication',name:appDetails[slug].name,url:canonical,description,applicationCategory:appDetails[slug].category,operatingSystem:'Web browser',inLanguage:locale,isAccessibleForFree:true}:undefined;
 const googleVerification=import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingVerification=import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 ---

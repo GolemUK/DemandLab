@@ -14,7 +14,7 @@ sources:
   - title: "Google Таблиці: створення випадних списків"
     url: "https://support.google.com/docs/answer/186103?hl=uk"
 relatedArticles: []
-relatedTools: [order-rescue]
+relatedTools: [order-rescue, profit-calculator]
 image: {src: "/images/orders-flow-uk.svg", alt: "Робочий цикл замовлення: запис, узгоджений статус, термін і відповідальний, щоденна перевірка наступної дії", width: 960, height: 300, caption: "Схема процесу; конкретні статуси та правила визначає ваша команда."}
 ---
 

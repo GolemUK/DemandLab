@@ -14,7 +14,7 @@ sources:
   - title: "Google Sheets: create dropdown lists"
     url: "https://support.google.com/docs/answer/186103?hl=en"
 relatedArticles: []
-relatedTools: [order-rescue]
+relatedTools: [order-rescue, profit-calculator]
 image: {src: "/images/orders-flow-en.svg", alt: "An order workflow: record, agreed status, deadline and owner, then review the next action each day", width: 960, height: 300, caption: "An example process; your team defines its own statuses and rules."}
 ---
 
