@@ -1,0 +1,37 @@
+---
+interface Props { category:string }
+const {category}=Astro.props;
+---
+<div class="guide-card-art" data-category={category} aria-hidden="true">
+  <svg viewBox="0 0 480 190" fill="none" focusable="false">
+    <circle class="art-orbit" cx="372" cy="40" r="82"/>
+    <path class="art-line" d="M0 153c78-26 112 24 192 0s112-24 192 0 64 17 96 5"/>
+    {category==='mobile' ? <>
+      <rect class="art-panel" x="192" y="20" width="96" height="148" rx="20"/>
+      <rect class="art-screen" x="202" y="36" width="76" height="104" rx="10"/>
+      <path class="art-accent-line" d="M219 58h42M219 72h31M219 94h42M219 108h26"/>
+      <circle class="art-accent-fill" cx="240" cy="153" r="5"/>
+      <circle class="art-float" cx="144" cy="63" r="22"/><path class="art-icon" d="M137 63h14m-7-7v14"/>
+    </> : category==='windows' ? <>
+      <rect class="art-panel" x="158" y="37" width="164" height="116" rx="14"/>
+      <path class="art-accent-fill" d="m179 61 48-9v34h-48zm58-11 46-8v44h-46zm-58 45h48v34l-48-8zm58 0h46v43l-46-8z"/>
+      <circle class="art-float" cx="344" cy="62" r="18"/><path class="art-icon" d="m337 62 5 5 9-10"/>
+    </> : category==='ai' ? <>
+      <rect class="art-panel" x="171" y="34" width="138" height="120" rx="18"/>
+      <path class="art-accent-line" d="M202 67h77M202 83h55M202 99h68"/>
+      <circle class="art-accent-fill" cx="280" cy="126" r="5"/><circle class="art-accent-fill" cx="263" cy="126" r="5" opacity=".55"/><circle class="art-accent-fill" cx="246" cy="126" r="5" opacity=".3"/>
+      <circle class="art-float" cx="137" cy="66" r="21"/><path class="art-icon" d="M137 53v26m-13-13h26m-22-9 18 18m0-18-18 18"/>
+    </> : category==='business' ? <>
+      <rect class="art-panel" x="170" y="34" width="140" height="120" rx="18"/>
+      <path class="art-muted-line" d="M193 122h94M193 104h70M193 86h48"/>
+      <path class="art-accent-fill" d="M194 122v-18h15v18zm27 0V87h15v35zm27 0V70h15v52zm27 0V57h15v65z"/>
+      <circle class="art-float" cx="342" cy="60" r="18"/><path class="art-icon" d="m334 60 6 6 11-13"/>
+    </> : <>
+      <rect class="art-panel" x="164" y="35" width="152" height="118" rx="18"/>
+      <circle class="art-accent-fill" cx="239" cy="92" r="32" opacity=".16"/><circle class="art-accent-stroke" cx="239" cy="92" r="23"/>
+      <path class="art-icon" d="m256 109 19 19"/>
+      <path class="art-muted-line" d="M195 60h22m44 0h26M195 132h22m44 0h26"/>
+      <circle class="art-float" cx="351" cy="65" r="18"/><path class="art-icon" d="M344 65h14m-7-7v14"/>
+    </>}
+  </svg>
+</div>

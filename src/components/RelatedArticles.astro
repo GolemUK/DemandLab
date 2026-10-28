@@ -1,0 +1,10 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import type {CollectionEntry} from 'astro:content';
+interface Props { guides:CollectionEntry<'guides'>[]; title:string }
+const {guides,title}=Astro.props;
+---
+{guides.length>0&&<aside class="related-articles" aria-labelledby="related-articles-title">
+  <h2 id="related-articles-title">{title}</h2>
+  <div class="related-grid">{guides.map(guide=><ArticleCard guide={guide}/>)}</div>
+</aside>}

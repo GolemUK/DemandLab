@@ -1,0 +1,49 @@
+---
+import {t,type Locale} from '../i18n';
+import {currencies} from '../lib/profit-calculator';
+const {locale}=Astro.props as {locale:Locale};
+const d=t(locale).profitCalculator;
+const currencyLabels:Record<string,string>={UAH:'UAH ₴',USD:'USD $',EUR:'EUR €',CZK:'CZK Kč'};
+---
+<section class="pricing-tool" id="profit-calculator" data-locale={locale} data-copy={JSON.stringify(d.client)} aria-labelledby="pricing-title">
+  <div class="pricing-controls panel">
+    <div class="pricing-mode" role="group" aria-label={d.modeLabel}>
+      <button class="button" type="button" data-mode="known-price" aria-pressed="true">{d.knownPrice}</button>
+      <button class="button secondary" type="button" data-mode="target-margin" aria-pressed="false">{d.targetPrice}</button>
+    </div>
+    <div class="pricing-fields">
+      <div class="field"><label for="price-cost">{d.unitCost}</label><input id="price-cost" data-field="unitCost" type="number" min="0" step="0.01" value="0" inputmode="decimal" required/></div>
+      <div class="field"><label for="price-additional">{d.additionalCosts}</label><input id="price-additional" data-field="additionalCosts" type="number" min="0" step="0.01" value="0" inputmode="decimal"/></div>
+      <div class="field"><label for="price-packaging">{d.packaging}</label><input id="price-packaging" data-field="packaging" type="number" min="0" step="0.01" value="0" inputmode="decimal"/></div>
+      <div class="field"><label for="price-shipping">{d.sellerShipping}</label><input id="price-shipping" data-field="sellerShipping" type="number" min="0" step="0.01" value="0" inputmode="decimal"/></div>
+      <div class="field"><label for="price-fixed-fee">{d.fixedFee}</label><input id="price-fixed-fee" data-field="fixedFee" type="number" min="0" step="0.01" value="0" inputmode="decimal"/></div>
+      <div class="field"><label for="price-fee-rate">{d.percentageFee}</label><div class="input-suffix"><input id="price-fee-rate" data-field="percentageFee" type="number" min="0" max="99.99" step="0.01" value="0" inputmode="decimal"/><span aria-hidden="true">%</span></div></div>
+      <div class="field"><label for="price-tax">{d.taxRate}</label><div class="input-suffix"><input id="price-tax" data-field="taxRate" type="number" min="0" max="99.99" step="0.01" value="0" inputmode="decimal"/><span aria-hidden="true">%</span></div></div>
+      <div class="field" data-known-field><label for="price-sale">{d.salePrice}</label><input id="price-sale" data-field="salePrice" type="number" min="0" step="0.01" value="0" inputmode="decimal"/></div>
+      <div class="field" data-target-field hidden><label for="price-margin">{d.targetMargin}</label><div class="input-suffix"><input id="price-margin" data-field="targetMargin" type="number" min="0" max="99.99" step="0.01" value="25" inputmode="decimal"/><span aria-hidden="true">%</span></div></div>
+      <div class="field"><label for="price-quantity">{d.quantity}</label><input id="price-quantity" data-field="quantity" type="number" min="1" step="1" value="10" inputmode="numeric" required/></div>
+      <div class="field"><label for="price-fixed-period">{d.periodFixedCosts}</label><input id="price-fixed-period" data-field="periodFixedCosts" type="number" min="0" step="0.01" value="0" inputmode="decimal"/></div>
+      <div class="field"><label for="price-currency">{d.currency}</label><select id="price-currency" data-field="currency">{currencies.map(currency=><option value={currency}>{currencyLabels[currency]}</option>)}</select></div>
+    </div>
+    <p class="notice">{d.taxNote}</p>
+    <p class="message error" data-error role="alert" hidden></p>
+    <div class="actions"><button class="button secondary" type="button" data-reset>{d.reset}</button><button class="button" type="button" data-copy>{d.copy}</button><span class="notice" data-status role="status" aria-live="polite"></span></div>
+  </div>
+  <section class="panel pricing-results" aria-labelledby="pricing-title"><div class="tool-top"><div><p class="eyebrow">{d.resultsEyebrow}</p><h2 id="pricing-title">{d.resultsTitle}</h2></div></div>
+    <div class="pricing-summary" data-results hidden>
+      <div class="price-result primary-result"><span>{d.recommendedPrice}</span><strong data-output="price"></strong></div>
+      <div class="price-result"><span>{d.profitPerUnit}</span><strong data-output="profitPerUnit"></strong></div>
+      <div class="price-result"><span>{d.margin}</span><strong data-output="margin"></strong></div>
+      <div class="price-result"><span>{d.markup}</span><strong data-output="markup"></strong></div>
+      <div class="price-result"><span>{d.periodProfit}</span><strong data-output="periodProfit"></strong></div>
+      <div class="price-result"><span>{d.breakEven}</span><strong data-output="breakEven"></strong></div>
+    </div>
+    <div class="pricing-detail" data-results hidden>
+      <section><h3>{d.priceStructure}</h3><div class="price-chart" data-chart aria-hidden="true"></div><ul class="chart-legend"><li><span class="legend-dot cost"></span>{d.costs}: <b data-output="costs"></b></li><li><span class="legend-dot fees"></span>{d.fees}: <b data-output="fees"></b></li><li><span class="legend-dot tax"></span>{d.tax}: <b data-output="tax"></b></li><li><span class="legend-dot profit"></span>{d.profitPerUnit}: <b data-output="profitPerUnit"></b></li></ul></section>
+      <section><h3>{d.scenarios}</h3><div class="table-scroll" tabindex="0" role="region" aria-label={d.scenarios}><table><thead><tr><th>{d.scenarioMargin}</th><th>{d.scenarioPrice}</th><th>{d.scenarioProfit}</th><th>{d.scenarioMarkup}</th></tr></thead><tbody data-scenarios></tbody></table></div></section>
+    </div>
+    <p class="pricing-empty notice" data-empty>{d.enterValues}</p>
+    <p class="notice">{d.formula}</p>
+  </section>
+</section>
+<script>import '../scripts/profit-calculator';</script>

@@ -8,18 +8,21 @@ published: true
 category: business
 tags: [orders, spreadsheets, CSV, small business]
 publishedAt: "2026-10-16"
-updatedAt: "2026-10-16"
-sourcesCheckedAt: "2026-10-16"
+updatedAt: "2026-10-25"
+sourcesCheckedAt: "2026-10-25"
 sources:
   - title: "Google Sheets: create dropdown lists"
     url: "https://support.google.com/docs/answer/186103?hl=en"
 relatedArticles: []
-relatedTools: [order-rescue]
+relatedTools: [order-rescue, profit-calculator]
+image: {src: "/images/orders-flow-en.svg", alt: "An order workflow: record, agreed status, deadline and owner, then review the next action each day", width: 960, height: 300, caption: "An example process; your team defines its own statuses and rules."}
 ---
 
 A spreadsheet can be a useful order register when the workflow is simple and someone is responsible for keeping it current. The main problem is usually not the number of columns. It is uncertainty about which record is current and who must act next.
 
 This guide starts with one shared table and a daily check. You can use the process in Excel, Google Sheets or another spreadsheet application.
+
+> **The diagram is an example workflow.** Agree your team’s status meanings and owners before copying it into a spreadsheet.
 
 ## When a spreadsheet is sufficient
 
@@ -52,7 +55,9 @@ Customer contact details are not required for a review export. Keep them in the 
 
 Use a short list: **new → processing → shipped → delivered**, with **cancelled** and **returned** as separate outcomes. Define when a status changes. For example, “shipped” should mean the parcel was handed to the carrier, not merely that a label was printed.
 
-Keep payment separate: **paid, unpaid, refunded, unknown**. A shipped order can legitimately be unpaid because of cash on delivery or agreed terms. It needs a payment-arrangement check, not an automatic accusation of non-payment.
+Keep payment separate: **paid, unpaid, refunded, unknown**.
+
+> **Note:** a shipped order may be unpaid because of cash on delivery or agreed terms. Check the payment arrangement before treating the record as an error.
 
 In the spreadsheet, use data validation to create dropdowns. Avoid near-duplicates such as “in work”, “working” and “process” unless you deliberately translate them into one canonical status.
 

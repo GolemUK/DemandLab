@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ProfitCalculator from '../../../components/ProfitCalculator.astro';
+import {t,href,type Locale} from '../../../i18n';
+import {locales} from '../../../i18n/locales';
+export function getStaticPaths(){return locales.map(locale=>({params:{lang:locale}}));}
+const locale=Astro.params.lang as Locale; const d=t(locale).profitCalculator; const slug='tools/profit-calculator';
+const equivalents=Object.fromEntries(locales.map(language=>[language,href(language,slug)])) as Partial<Record<Locale,string>>;
+---
+<Layout locale={locale} title={d.title} description={d.description} slug={slug} equivalents={equivalents}>
+  <div class="wrap"><header class="page-heading"><p class="eyebrow">{d.eyebrow}</p><h1>{d.title}</h1><p>{d.intro}</p></header><ProfitCalculator locale={locale}/></div>
+</Layout>

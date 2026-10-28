@@ -1,0 +1,12 @@
+---
+interface Heading { depth: number; slug: string; text: string }
+interface Props { headings: Heading[]; label: string }
+const {headings,label}=Astro.props;
+const items=headings.filter(h=>h.depth===2||h.depth===3);
+---
+{items.length>0&&<nav class="article-toc" aria-label={label}>
+  <details open>
+    <summary><span>{label}</span><span class="toc-toggle" aria-hidden="true">＋</span></summary>
+    <ol>{items.map(h=><li class:list={{'toc-sub':h.depth===3}}><a href={'#'+h.slug}>{h.text}</a></li>)}</ol>
+  </details>
+</nav>}

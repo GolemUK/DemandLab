@@ -1,5 +1,14 @@
 ---
 import {href,t} from '../i18n';import type {CollectionEntry} from 'astro:content';
+import GuideIllustration from './GuideIllustration.astro';
 const {guide,headingLevel=3}=Astro.props as {guide:CollectionEntry<'guides'>;headingLevel?:2|3};const Heading=headingLevel===2?'h2':'h3';const g=guide.data;const d=t(g.locale);
 ---
-<a class="guide-card" href={href(g.locale,'guides/'+g.slug)}><p class="guide-badge">{d.editorial.categories[g.category]} · <time datetime={g.publishedAt}>{g.publishedAt}</time></p><Heading>{g.title}</Heading><p>{g.description}</p><span class="text-link">{d.editorial.read} ↗</span></a>
+<a class="guide-card" href={href(g.locale,'guides/'+g.slug)}>
+  <GuideIllustration category={g.category}/>
+  <div class="guide-card-body">
+    <p class="guide-badge">{d.editorial.categories[g.category]}</p>
+    <Heading>{g.title}</Heading>
+    <p class="guide-card-description">{g.description}</p>
+    <span class="guide-card-link">{d.editorial.read}<span aria-hidden="true">↗</span></span>
+  </div>
+</a>

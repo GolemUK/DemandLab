@@ -8,8 +8,8 @@ published: true
 category: windows
 tags: [Windows 11, C drive, low disk space, Storage Sense, temporary files, OneDrive]
 publishedAt: "2026-10-18"
-updatedAt: "2026-10-18"
-sourcesCheckedAt: "2026-10-18"
+updatedAt: "2026-10-25"
+sourcesCheckedAt: "2026-10-25"
 sources:
   - title: "Microsoft: Free up drive space in Windows"
     url: "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows"
@@ -19,11 +19,14 @@ sources:
     url: "https://support.microsoft.com/en-us/sharepoint/sync/work-with-synced-files-in-file-explorer"
 relatedArticles: [google-storage-full]
 relatedTools: []
+image: {src: "/images/windows-flow-en.svg", alt: "Four safer cleanup steps: confirm the drive, locate a category, inspect its files and recheck free space", width: 960, height: 300, caption: "A decision sequence, not a screenshot or replica of Windows menus."}
 ---
 
 When Windows says your C: drive is almost full, do not start by deleting files in bulk. First confirm which drive is short on space and what is using it. Windows cleanup recommendations group items and estimate how much space they may free. Review each group before removing anything: the Recycle Bin, Downloads and synced folders can contain files you still need.
 
 This guide covers Windows 11. Names and locations can vary slightly by Windows version and display language.
+
+> **Reading the diagram:** it is a decision sequence, not a screenshot or exact reproduction of the Windows interface.
 
 ## Confirm that the C: drive is the problem
 
@@ -51,7 +54,7 @@ One item needs extra care: **Previous Windows installation(s)**, sometimes assoc
 
 Do not enable automatic cleanup of Downloads or the Recycle Bin unless you check those locations routinely. Emptying the Recycle Bin may be permanent for an ordinary user. Restore anything you want to keep and back up important files before enabling deletion.
 
-For OneDrive files, Storage Sense can manage local copies according to your settings. Making a synced file **online-only** frees space on this device while keeping it available to download again when you have a connection. That differs from deleting a file from OneDrive. Do not delete a file in a synced folder until you have checked where its copy lives and how sync will propagate the change.
+> **OneDrive caution:** Storage Sense settings can manage local copies. Making a synced file **online-only** frees space on this device while keeping it available to download again when you have a connection. That differs from deleting a file from OneDrive. Check sync and the cloud copy before changing a synced file.
 
 ## Find personal files you can move
 

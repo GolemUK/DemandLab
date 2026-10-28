@@ -18,6 +18,8 @@ relatedTools: []
 # image:
 #   src: /images/your-illustration.svg
 #   alt: Explain the useful information in the image
+#   width: 960
+#   height: 300
 #   caption: Optional caption
 # seo:
 #   title: Optional search title
